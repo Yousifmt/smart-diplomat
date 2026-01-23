@@ -87,14 +87,7 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={pathname.startsWith("/sources")}>
-                  <Link href="/sources">
-                    <Database />
-                    <span>المصادر</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              
 
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname.startsWith("/admin")}>
