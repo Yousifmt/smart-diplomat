@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+/* subtle gold selection */
+::selection {
+  background: rgba(201, 162, 39, 0.22);
+}
+
+@layer base {
+  :root {
+    /* ===== Midnight Slate (comfortable dark-ish) ===== */
+    --background: 222 28% 10%;
+    --foreground: 210 40% 96%;
+
+    --card: 222 22% 14%;
+    --card-foreground: 210 40% 96%;
+
+    --popover: 222 22% 14%;
+    --popover-foreground: 210 40% 96%;
+
+    /* Brand navy */
+    --primary: 221 83% 58%;
+    --primary-foreground: 222 28% 10%;
+
+    --secondary: 222 18% 18%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 222 16% 18%;
+    --muted-foreground: 215 18% 72%;
+
+    /* Gold accent */
+    --accent: 43 86% 52%;
+    --accent-foreground: 222 28% 10%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 210 40% 96%;
+
+    /* Borders / inputs */
+    --border: 222 16% 22%;
+    --input: 222 16% 22%;
+    --ring: 221 83% 58%;
+
+    --radius: 0.9rem;
+
+    /* ===== Sidebar (darker than chat) ===== */
+    --sidebar-background: 222 34% 8%;
+    --sidebar-foreground: 210 40% 92%;
+
+    --sidebar-primary: 221 83% 58%;
+    --sidebar-primary-foreground: 222 34% 8%;
+
+    --sidebar-accent: 222 18% 14%;
+    --sidebar-accent-foreground: 210 40% 96%;
+
+    --sidebar-border: 222 18% 18%;
+    --sidebar-ring: 221 83% 58%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* =======================================================
+   Sidebar Scrollbar (ONLY for sidebar content)
+   Target: .sidebar-scroll (we added it to SidebarContent)
+   ======================================================= */
+
+/* Firefox */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) rgba(2, 6, 23, 0.18);
+}
+
+/* Chrome / Edge */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: rgba(2, 6, 23, 0.18);
+  border-radius: 999px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  border: 2px solid rgba(2, 6, 23, 0.18);
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
+}
+
+.sidebar-scroll::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
