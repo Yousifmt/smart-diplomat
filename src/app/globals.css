@@ -7,64 +7,60 @@ body {
   height: 100%;
 }
 
-/* Luxury gold selection */
+/* selection */
 ::selection {
-  background: rgba(212, 175, 55, 0.22);
+  background: rgba(37, 99, 235, 0.22);
 }
 
 @layer base {
   :root {
-    /* =========================
-       MIDNIGHT NAVY + GOLD
-       ========================= */
+    /* ========= TRUE BLUE Luxury Theme ========= */
+    /* ✅ background = BLUE (not gray) */
+    --background: 214 85% 88%;     /* واضح أزرق */
+    --foreground: 221 95% 18%;     /* كل النصوص أزرق غامق */
 
-    /* Background / text */
-    --background: 222 46% 9%;        /* deep navy */
-    --foreground: 45 45% 94%;        /* warm off-white */
+    --card: 0 0% 100%;
+    --card-foreground: 221 95% 18%;
 
-    /* Card / popover */
-    --card: 222 40% 12%;
-    --card-foreground: 45 45% 94%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 221 95% 18%;
 
-    --popover: 222 40% 12%;
-    --popover-foreground: 45 45% 94%;
+    /* Primary button */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Primary = gold */
-    --primary: 43 92% 52%;
-    --primary-foreground: 222 46% 9%;
+    /* Surfaces */
+    --secondary: 214 90% 90%;
+    --secondary-foreground: 221 95% 18%;
 
-    /* Dark surfaces */
-    --secondary: 222 28% 16%;
-    --secondary-foreground: 45 45% 94%;
+    --muted: 214 85% 89%;
+    --muted-foreground: 221 40% 35%;
 
-    --muted: 222 24% 16%;
-    --muted-foreground: 45 14% 76%;
+    --accent: 214 92% 88%;
+    --accent-foreground: 221 95% 18%;
 
-    /* Accent */
-    --accent: 43 92% 52%;
-    --accent-foreground: 222 46% 9%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 52%;
-    --destructive-foreground: 45 45% 94%;
-
-    /* Borders / inputs */
-    --border: 222 20% 22%;
-    --input: 222 20% 22%;
-
-    /* Ring: subtle blue */
-    --ring: 217 92% 65%;
+    /* borders/inputs */
+    --border: 214 55% 78%;
+    --input: 214 55% 78%;
+    --ring: 221 83% 53%;
 
     --radius: 1.1rem;
 
-    /* Sidebar */
-    --sidebar-background: 222 52% 7%;
-    --sidebar-foreground: 45 35% 92%;
-    --sidebar-primary: 43 92% 52%;
-    --sidebar-primary-foreground: 222 52% 7%;
-    --sidebar-accent: 222 30% 14%;
-    --sidebar-accent-foreground: 45 45% 94%;
-    --sidebar-border: 222 24% 18%;
-    --sidebar-ring: 217 92% 65%;
+    /* Sidebar (also BLUE) */
+    --sidebar-background: 214 85% 91%;
+    --sidebar-foreground: 221 95% 18%;
+
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    --sidebar-accent: 214 92% 88%;
+    --sidebar-accent-foreground: 221 95% 18%;
+
+    --sidebar-border: 214 55% 78%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   * {
@@ -74,13 +70,19 @@ body {
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+
+    /* ✅ يعطي فخامة + عمق لكن يبقى أزرق */
+    background-image:
+      radial-gradient(65% 45% at 50% 0%, rgba(37, 99, 235, 0.18), transparent 60%),
+      radial-gradient(55% 40% at 15% 15%, rgba(30, 64, 175, 0.14), transparent 55%),
+      linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(255,255,255,0));
   }
 }
 
 /* Sidebar scrollbar */
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(212, 175, 55, 0.35) rgba(2, 6, 23, 0.18);
+  scrollbar-color: rgba(30, 64, 175, 0.40) rgba(255, 255, 255, 0.70);
 }
 
 .sidebar-scroll::-webkit-scrollbar {
@@ -89,18 +91,18 @@ body {
 }
 
 .sidebar-scroll::-webkit-scrollbar-track {
-  background: rgba(2, 6, 23, 0.18);
+  background: rgba(255, 255, 255, 0.70);
   border-radius: 999px;
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(212, 175, 55, 0.28);
+  background: rgba(30, 64, 175, 0.34);
   border-radius: 999px;
-  border: 2px solid rgba(2, 6, 23, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.70);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(212, 175, 55, 0.42);
+  background: rgba(30, 64, 175, 0.50);
 }
 
 .sidebar-scroll::-webkit-scrollbar-corner {

@@ -1,4 +1,3 @@
-// src/app/(app)/admin/page.tsx
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
@@ -30,6 +29,11 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isPending, startTransition] = useTransition();
 
+  const inputBase =
+    "h-12 rounded-2xl bg-blue-50/80 border-blue-200 " +
+    "text-[16px] md:text-sm text-blue-950 placeholder:text-blue-900/40 " +
+    "focus-visible:ring-2 focus-visible:ring-blue-500/25";
+
   return (
     <form
       ref={formRef}
@@ -60,146 +64,55 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
     >
       <input type="hidden" name="country" value={country} />
 
-      {/* ✅ Mobile perfect grid */}
       <div className="grid gap-3 md:grid-cols-2">
         <div className="space-y-1.5">
-          <Label className="text-amber-100/90">اسم المصدر</Label>
-          <Input
-            name="sourceName"
-            required
-            className="
-              h-12 rounded-2xl bg-background/30
-              border-amber-400/14
-              text-[16px] md:text-sm
-              text-amber-100/90
-              placeholder:text-amber-100/30
-              focus-visible:ring-2 focus-visible:ring-blue-400/30
-              focus-visible:border-amber-300/30
-            "
-            placeholder="مثال: وزارة الخارجية"
-          />
+          <Label className="text-blue-950">اسم المصدر</Label>
+          <Input name="sourceName" required className={inputBase} />
         </div>
-
         <div className="space-y-1.5">
-          <Label className="text-amber-100/90">الناشر</Label>
-          <Input
-            name="publisher"
-            required
-            className="
-              h-12 rounded-2xl bg-background/30
-              border-amber-400/14
-              text-[16px] md:text-sm
-              text-amber-100/90
-              placeholder:text-amber-100/30
-              focus-visible:ring-2 focus-visible:ring-blue-400/30
-              focus-visible:border-amber-300/30
-            "
-            placeholder="مثال: Official Gazette"
-          />
+          <Label className="text-blue-950">الناشر</Label>
+          <Input name="publisher" required className={inputBase} />
         </div>
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-amber-100/90">العنوان</Label>
-        <Input
-          name="title"
-          required
-          className="
-            h-12 rounded-2xl bg-background/30
-            border-amber-400/14
-            text-[16px] md:text-sm
-            text-amber-100/90
-            placeholder:text-amber-100/30
-            focus-visible:ring-2 focus-visible:ring-blue-400/30
-            focus-visible:border-amber-300/30
-          "
-          placeholder="عنوان مختصر وواضح"
-        />
+        <Label className="text-blue-950">العنوان</Label>
+        <Input name="title" required className={inputBase} />
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
         <div className="space-y-1.5">
-          <Label className="text-amber-100/90">الرابط</Label>
-          <Input
-            name="url"
-            required
-            inputMode="url"
-            className="
-              h-12 rounded-2xl bg-background/30
-              border-amber-400/14
-              text-[16px] md:text-sm
-              text-amber-100/90
-              placeholder:text-amber-100/30
-              focus-visible:ring-2 focus-visible:ring-blue-400/30
-              focus-visible:border-amber-300/30
-            "
-            placeholder="https://example.gov/..."
-          />
+          <Label className="text-blue-950">الرابط</Label>
+          <Input name="url" required className={inputBase} inputMode="url" />
         </div>
-
         <div className="space-y-1.5">
-          <Label className="text-amber-100/90">تاريخ النشر (اختياري)</Label>
-          <Input
-            name="publicationDate"
-            placeholder="2026-01-22"
-            inputMode="numeric"
-            className="
-              h-12 rounded-2xl bg-background/30
-              border-amber-400/14
-              text-[16px] md:text-sm
-              text-amber-100/90
-              placeholder:text-amber-100/30
-              focus-visible:ring-2 focus-visible:ring-blue-400/30
-              focus-visible:border-amber-300/30
-            "
-          />
-          <p className="text-[11px] text-muted-foreground">
-            صيغة مقترحة: YYYY-MM-DD
-          </p>
+          <Label className="text-blue-950">تاريخ النشر (اختياري)</Label>
+          <Input name="publicationDate" placeholder="2026-01-22" className={inputBase} />
         </div>
       </div>
 
       <div className="space-y-1.5">
-        <Label className="text-amber-100/90">المحتوى</Label>
+        <Label className="text-blue-950">المحتوى</Label>
         <Textarea
           name="snippet"
           rows={7}
           required
           className="
-            rounded-2xl bg-background/30
-            border-amber-400/14
-            text-[16px] md:text-sm
-            text-amber-100/90
-            placeholder:text-amber-100/30
-            focus-visible:ring-2 focus-visible:ring-blue-400/30
-            focus-visible:border-amber-300/30
+            rounded-2xl bg-blue-50/80 border-blue-200
+            text-[16px] md:text-sm text-blue-950 placeholder:text-blue-900/40
+            focus-visible:ring-2 focus-visible:ring-blue-500/25
           "
-          placeholder="اكتب المحتوى/المعلومة هنا..."
         />
       </div>
 
-      {/* Buttons row */}
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="
-            h-12 rounded-2xl
-            bg-gradient-to-l from-indigo-500 via-blue-600 to-indigo-600
-            text-white shadow-lg shadow-black/25
-            hover:brightness-[1.06] active:brightness-[0.98]
-            disabled:opacity-60
-          "
-        >
-          {isPending ? "جاري الحفظ..." : "إضافة معلومات يدوية"}
-        </Button>
+      <Button
+        type="submit"
+        disabled={isPending}
+        className="h-12 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 shadow-md shadow-blue-900/15"
+      >
+        {isPending ? "جاري الحفظ..." : "إضافة معلومات يدوية"}
+      </Button>
 
-        <div className="text-xs text-muted-foreground text-center sm:text-left">
-          تُحفظ البيانات ضمن سياق الدولة المحددة.
-        </div>
-      </div>
-
-      {/* Safe area for iPhone home indicator */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </form>
   );
@@ -229,74 +142,49 @@ export default function AdminPage() {
     if (!ok) return;
 
     setDeletingId(id);
-
-    // Optimistic UI
     const prev = manualInfos;
     setManualInfos((x) => x.filter((p) => p.id !== id));
 
     try {
       const res = await deletePassage(id);
       if (res?.error) throw new Error(res.error);
-
       toast({ title: "تم الحذف", description: "تم حذف المعلومات اليدوية." });
     } catch (e: any) {
       setManualInfos(prev);
-      toast({
-        variant: "destructive",
-        title: "فشل الحذف",
-        description: e?.message ?? "خطأ غير متوقع.",
-      });
+      toast({ variant: "destructive", title: "فشل الحذف", description: e?.message ?? "خطأ غير متوقع." });
     } finally {
       setDeletingId(null);
     }
   };
 
   return (
-    <div className="relative space-y-6" dir="rtl" lang="ar">
-      {/* Background similar to chat */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,rgba(59,130,246,0.22)_0%,rgba(0,0,0,0)_62%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_18%_18%,rgba(245,158,11,0.10)_0%,rgba(0,0,0,0)_58%)]" />
-        <div className="absolute inset-0 opacity-[0.55] bg-[linear-gradient(to_bottom,rgba(255,255,255,0.05),rgba(0,0,0,0))]" />
-        <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
-      </div>
-
-      {/* Header */}
+    <div className="space-y-6" dir="rtl" lang="ar">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight text-amber-100/95">
-              الإدارة
-            </h1>
-            <Badge className="gap-1 border border-amber-400/14 bg-amber-400/10 text-amber-100/90">
-              <Globe className="h-3.5 w-3.5 text-amber-300" />
+            <h1 className="text-2xl font-semibold tracking-tight text-blue-950">الإدارة</h1>
+            <Badge className="gap-1 border border-blue-200 bg-blue-50 text-blue-950">
+              <Globe className="h-3.5 w-3.5 text-blue-700" />
               {country}
             </Badge>
           </div>
-          <p className="text-sm text-muted-foreground">إضافة/إدارة المعلومات اليدوية فقط.</p>
+          <p className="text-sm text-blue-950/70">إضافة/إدارة المعلومات اليدوية فقط.</p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="outline"
-            onClick={refresh}
-            className="
-              gap-2 rounded-2xl
-              border-amber-400/14 bg-amber-400/5
-              text-amber-100/85 hover:bg-amber-400/10 hover:text-amber-100
-            "
-          >
-            <RefreshCcw className="h-4 w-4 text-amber-300" />
-            تحديث
-          </Button>
-        </div>
+        <Button
+          variant="outline"
+          onClick={refresh}
+          className="gap-2 rounded-2xl border-blue-200 bg-white/70 text-blue-950 hover:bg-blue-50"
+        >
+          <RefreshCcw className="h-4 w-4 text-blue-700" />
+          تحديث
+        </Button>
       </div>
 
-      {/* ✅ CountrySelector added (same as sidebar) */}
-      <Card className="w-full border-amber-400/14 bg-card/75 shadow-2xl shadow-black/25 backdrop-blur-xl">
-        <CardHeader className="pb-3">
-          <CardTitle className="text-amber-100/95">سياق الدولة</CardTitle>
-          <CardDescription>اختر الدولة التي تريد إدارة معلوماتها.</CardDescription>
+      <Card className="w-full border-blue-200 bg-white/75 shadow-lg shadow-blue-900/10 backdrop-blur">
+        <CardHeader>
+          <CardTitle className="text-blue-950">سياق الدولة</CardTitle>
+          <CardDescription className="text-blue-950/70">اختر الدولة ثم أضف/احذف المعلومات.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="max-w-md">
@@ -305,43 +193,33 @@ export default function AdminPage() {
         </CardContent>
       </Card>
 
-      {/* Manual info card */}
-      <Card className="w-full border-amber-400/14 bg-card/75 shadow-2xl shadow-black/25 backdrop-blur-xl">
+      <Card className="w-full border-blue-200 bg-white/75 shadow-lg shadow-blue-900/10 backdrop-blur">
         <CardHeader>
-          <CardTitle className="text-amber-100/95">المعلومات اليدوية</CardTitle>
-          <CardDescription>أضف معلومات بشكل يدوي ويمكنك حذف أي عنصر لاحقاً.</CardDescription>
+          <CardTitle className="text-blue-950">المعلومات اليدوية</CardTitle>
+          <CardDescription className="text-blue-950/70">أضف معلومات يدويًا ويمكنك حذفها لاحقًا.</CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-5">
           <ManualInfoForm onSaved={refresh} />
 
           <div className="pt-1">
-            <div className="text-sm font-semibold mb-3 text-amber-100/90">العناصر الحالية</div>
+            <div className="text-sm font-semibold mb-3 text-blue-950">العناصر الحالية</div>
 
             {loading ? (
-              <Skeleton className="h-24 w-full rounded-2xl bg-amber-400/5" />
+              <Skeleton className="h-24 w-full rounded-2xl bg-blue-100/60" />
             ) : manualInfos.length ? (
               <div className="space-y-2">
                 {manualInfos.map((p) => (
-                  <div
-                    key={p.id}
-                    className="
-                      rounded-2xl border border-amber-400/12
-                      bg-background/30 p-4 text-sm
-                      shadow-sm
-                    "
-                  >
+                  <div key={p.id} className="rounded-2xl border border-blue-200 bg-white/80 p-4 text-sm shadow-sm">
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div className="min-w-0">
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-xs text-blue-950/65">
                           {p.sourceName} • {p.publisher}
                         </div>
-                        <div className="mt-1 font-semibold text-amber-100/95">{p.title}</div>
-                        <div className="mt-1 text-xs text-muted-foreground break-all">{p.url}</div>
+                        <div className="mt-1 font-semibold text-blue-950">{p.title}</div>
+                        <div className="mt-1 text-xs text-blue-950/65 break-all">{p.url}</div>
                         {p.publicationDate ? (
-                          <div className="text-xs text-muted-foreground mt-2">
-                            التاريخ: {p.publicationDate}
-                          </div>
+                          <div className="text-xs text-blue-950/65 mt-2">التاريخ: {p.publicationDate}</div>
                         ) : null}
                       </div>
 
@@ -360,13 +238,11 @@ export default function AdminPage() {
                 ))}
               </div>
             ) : (
-              <div className="text-sm text-muted-foreground">لا توجد معلومات بعد.</div>
+              <div className="text-sm text-blue-950/70">لا توجد معلومات بعد.</div>
             )}
           </div>
         </CardContent>
       </Card>
-
-      <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );
 }

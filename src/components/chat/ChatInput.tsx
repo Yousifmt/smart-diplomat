@@ -32,16 +32,12 @@ export function ChatInput({
     <div className="w-full" dir="rtl" lang="ar">
       <div
         className={cn(
-          "rounded-[26px] border",
-          "border-amber-400/14",
-          "bg-amber-400/5 backdrop-blur",
-          "shadow-sm transition-colors hover:bg-amber-400/7",
-          "focus-within:border-amber-300/25 focus-within:ring-1 focus-within:ring-amber-300/15"
+          "rounded-[26px] border border-blue-200 bg-white/70 backdrop-blur",
+          "shadow-sm transition-colors hover:bg-white/85",
+          "focus-within:ring-2 focus-within:ring-blue-400/25"
         )}
       >
-        {/* Row */}
         <div className="flex items-stretch gap-2 p-3">
-          {/* Textarea */}
           <div className="flex-1">
             <textarea
               value={value}
@@ -50,9 +46,8 @@ export function ChatInput({
               rows={1}
               className={cn(
                 "w-full resize-none bg-transparent outline-none",
-                // ✅ iOS no-zoom: >= 16px on mobile
-                "text-[16px] md:text-[14px] leading-6",
-                "text-amber-100/95 placeholder:text-amber-100/35",
+                "text-[16px] md:text-[14px] leading-6", // ✅ iOS no-zoom
+                "text-slate-950 placeholder:text-slate-500",
                 "min-h-[48px] py-2 px-3",
                 "overflow-hidden"
               )}
@@ -68,7 +63,6 @@ export function ChatInput({
             />
           </div>
 
-          {/* Send Button (NOT yellow) */}
           <div className="shrink-0">
             <Button
               type="button"
@@ -76,9 +70,8 @@ export function ChatInput({
               disabled={!canSend}
               className={cn(
                 "h-[48px] w-[54px] rounded-2xl p-0",
-                "bg-gradient-to-l from-indigo-500 via-blue-600 to-indigo-600",
-                "text-white shadow-lg shadow-black/25",
-                "hover:brightness-[1.06] active:brightness-[0.98]",
+                "bg-blue-200 text-slate-950 shadow-md shadow-blue-900/10",
+                "hover:bg-blue-300/80 active:bg-blue-300",
                 "disabled:opacity-50"
               )}
               aria-label="Send"
@@ -88,20 +81,18 @@ export function ChatInput({
           </div>
         </div>
 
-        {/* Footer hints */}
-        <div className="border-t border-amber-400/10 px-3 py-2">
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-amber-100/60">
-            <span className="rounded-full border border-amber-400/14 bg-amber-400/5 px-2 py-0.5">
+        <div className="border-t border-blue-200 px-3 py-2">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-600">
+            <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5">
               Enter للإرسال
             </span>
-            <span className="rounded-full border border-amber-400/14 bg-amber-400/5 px-2 py-0.5">
+            <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5">
               Shift+Enter سطر جديد
             </span>
           </div>
         </div>
       </div>
 
-      {/* Safe area for iPhone home indicator */}
       <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );

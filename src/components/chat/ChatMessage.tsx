@@ -24,19 +24,15 @@ export function ChatMessage({ message }: { message: Message }) {
           mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1"
         )}
       >
-        {/* Avatar */}
         <div
           className={cn(
             "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border",
-            isUser
-              ? "border-[#12325A] bg-[#0B1F3A] text-amber-200"
-              : "bg-primary text-primary-foreground border-primary/30"
+            "border-blue-200 bg-blue-50 text-blue-950"
           )}
         >
           {isUser ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
         </div>
 
-        {/* Bubble */}
         <div className={cn("flex-1", isUser ? "flex justify-end" : "flex justify-start")}>
           <div
             dir="rtl"
@@ -44,31 +40,27 @@ export function ChatMessage({ message }: { message: Message }) {
             className={cn(
               "relative max-w-[92%] md:max-w-[85%]",
               "rounded-[22px] border px-4 py-3 text-sm leading-relaxed shadow-sm",
-              isUser
-                ? "bg-[#0B1F3A] text-amber-200 border-[#12325A] rounded-tr-md shadow-md shadow-black/25"
-                : "bg-background/70 text-foreground border-border/70 rounded-tl-md backdrop-blur"
+              "border-blue-200",
+              isUser ? "bg-blue-100/70 rounded-tr-md" : "bg-white/80 rounded-tl-md backdrop-blur"
             )}
           >
-            {/* assistant subtle glow */}
             {!isUser && (
-              <div className="pointer-events-none absolute inset-0 rounded-[22px] bg-[radial-gradient(70%_60%_at_40%_0%,rgba(59,130,246,0.10)_0%,rgba(0,0,0,0)_60%)]" />
+              <div className="pointer-events-none absolute inset-0 rounded-[22px] bg-[radial-gradient(70%_60%_at_40%_0%,rgba(37,99,235,0.10)_0%,rgba(0,0,0,0)_60%)]" />
             )}
 
-            <div className="relative whitespace-pre-wrap">{message.content}</div>
+            <div className="relative whitespace-pre-wrap text-blue-950">{message.content}</div>
 
             {message.citations && message.citations.length > 0 && (
-              <div className="relative mt-4 border-t border-border/60 pt-3">
-                <div className="mb-2 text-xs font-semibold text-muted-foreground">
-                  References
-                </div>
+              <div className="relative mt-4 border-t border-blue-200 pt-3">
+                <div className="mb-2 text-xs font-semibold text-blue-950/80">References</div>
                 <ul className="space-y-2">
                   {message.citations.map((c, i) => (
-                    <li key={i} className="text-xs text-muted-foreground">
+                    <li key={i} className="text-xs text-blue-950/75">
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 hover:text-foreground hover:underline"
+                        className="inline-flex items-center gap-1 hover:text-blue-950 hover:underline"
                       >
                         <span>
                           {i + 1}. {c.title}

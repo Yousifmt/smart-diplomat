@@ -11,9 +11,7 @@ import { useApp } from "@/providers/app-providers";
 
 function nameFromEmail(email: string) {
   const left = (email.split("@")[0] ?? "User").trim() || "User";
-  return left
-    .replace(/[._-]+/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
+  return left.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function LoginForm() {
@@ -46,67 +44,56 @@ export function LoginForm() {
     }
   };
 
+  const inputClass =
+    "h-12 rounded-2xl bg-blue-50/80 px-4 text-center border-blue-200 " +
+    "text-[16px] md:text-sm text-blue-950 placeholder:text-blue-900/40 " +
+    "focus-visible:ring-2 focus-visible:ring-blue-500/30";
+
   return (
     <Card
       dir="rtl"
       lang="ar"
       className="
-        relative w-full max-w-md overflow-hidden rounded-[28px]
-        border border-amber-400/20
-        bg-card/70 shadow-2xl shadow-black/35 backdrop-blur-xl
+        w-full max-w-md overflow-hidden rounded-[28px]
+        border border-blue-200/80
+        bg-white/80 shadow-xl shadow-blue-900/10
+        backdrop-blur
       "
     >
-      {/* Premium background glows */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 -right-24 h-56 w-56 rounded-full bg-blue-400/10 blur-3xl" />
-        <div className="absolute -bottom-28 -left-28 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
-        <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
-      </div>
-
       <CardHeader className="relative flex flex-col items-center text-center pb-0">
-        {/* ICON */}
-        <div
-          className="
-            mt-2 flex h-16 w-16 items-center justify-center rounded-3xl
-            border border-amber-400/25 bg-blue-500/10 shadow-sm
-          "
-        >
-          <div className="text-amber-300 drop-shadow">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-blue-300/25 blur-3xl" />
+          <div className="absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-blue-200/20 blur-3xl" />
+        </div>
+
+        <div className="relative mt-2 flex h-16 w-16 items-center justify-center rounded-3xl border border-blue-200 bg-blue-50 shadow-sm">
+          <div className="text-blue-950">
             <Logo iconOnly />
           </div>
         </div>
 
-        {/* TITLE */}
-        <div
-          className="
-            mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight
-            text-transparent bg-clip-text
-            bg-gradient-to-l from-amber-200 via-yellow-300 to-amber-400
-          "
-        >
+        <div className="relative mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight text-blue-950">
           Smart Diplomat
         </div>
 
-        {/* SUBTITLE */}
-        <div className="mt-3 text-sm text-muted-foreground">
+        <div className="relative mt-3 text-sm text-blue-950/75">
           مساعد دبلوماسي مبني على مصادر معتمدة
         </div>
 
-        {/* SECTION TITLE */}
-        <CardTitle className="mt-6 text-2xl font-bold tracking-tight text-amber-200">
+        <CardTitle className="relative mt-6 text-2xl font-bold tracking-tight text-blue-950">
           تسجيل الدخول
         </CardTitle>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="relative mt-2 text-sm text-blue-950/75">
           ادخل بريدك وكلمة المرور للمتابعة.
         </p>
 
-        <div className="mt-6 h-px w-full bg-gradient-to-l from-transparent via-amber-400/25 to-transparent" />
+        <div className="relative mt-6 h-px w-full bg-gradient-to-l from-transparent via-blue-200 to-transparent" />
       </CardHeader>
 
       <CardContent className="relative px-6 pb-6 pt-6">
         <form onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-sm font-semibold text-amber-100/95">
+            <Label htmlFor="email" className="text-sm font-semibold text-blue-950">
               البريد الوظيفي
             </Label>
             <Input
@@ -118,18 +105,12 @@ export function LoginForm() {
               autoComplete="email"
               inputMode="email"
               required
-              className="
-                h-12 rounded-2xl bg-background/30 px-4 text-center text-base
-                border-amber-400/20
-                focus-visible:ring-2 focus-visible:ring-blue-400/40
-                focus-visible:border-amber-300/45
-                placeholder:text-amber-100/40
-              "
+              className={inputClass}
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="password" className="text-sm font-semibold text-amber-100/95">
+            <Label htmlFor="password" className="text-sm font-semibold text-blue-950">
               كلمة المرور
             </Label>
             <Input
@@ -140,13 +121,7 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
               required
-              className="
-                h-12 rounded-2xl bg-background/30 px-4 text-center text-base
-                border-amber-400/20
-                focus-visible:ring-2 focus-visible:ring-blue-400/40
-                focus-visible:border-amber-300/45
-                placeholder:text-amber-100/40
-              "
+              className={inputClass}
             />
           </div>
 
@@ -155,18 +130,14 @@ export function LoginForm() {
             disabled={busy}
             className="
               mt-2 h-12 w-full rounded-2xl text-base font-semibold
-              bg-gradient-to-l from-amber-300 via-yellow-300 to-amber-400
-              text-slate-950
-              shadow-lg shadow-black/25
-              hover:brightness-[1.03]
-              active:brightness-[0.98]
-              disabled:opacity-70
+              bg-blue-600 text-white hover:bg-blue-700
+              shadow-md shadow-blue-900/15
             "
           >
             {busy ? "جاري الدخول…" : "دخول"}
           </Button>
 
-          <p className="mt-1 text-center text-xs text-muted-foreground">
+          <p className="mt-1 text-center text-xs text-blue-950/70">
             باستخدامك للتطبيق فأنت توافق على الاستخدام لأغراض معلوماتية فقط.
           </p>
         </form>
