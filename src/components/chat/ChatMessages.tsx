@@ -1,3 +1,5 @@
+"use client";
+
 import type { Message } from "@/lib/types";
 import { ChatMessage } from "./ChatMessage";
 import { Bot } from "lucide-react";

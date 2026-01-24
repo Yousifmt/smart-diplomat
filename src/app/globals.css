@@ -7,59 +7,64 @@ body {
   height: 100%;
 }
 
-/* subtle gold selection */
+/* Luxury gold selection */
 ::selection {
-  background: rgba(201, 162, 39, 0.22);
+  background: rgba(212, 175, 55, 0.22);
 }
 
 @layer base {
   :root {
-    /* ===== Midnight Slate (comfortable dark-ish) ===== */
-    --background: 222 28% 10%;
-    --foreground: 210 40% 96%;
+    /* =========================
+       MIDNIGHT NAVY + GOLD
+       ========================= */
 
-    --card: 222 22% 14%;
-    --card-foreground: 210 40% 96%;
+    /* Background / text */
+    --background: 222 46% 9%;        /* deep navy */
+    --foreground: 45 45% 94%;        /* warm off-white */
 
-    --popover: 222 22% 14%;
-    --popover-foreground: 210 40% 96%;
+    /* Card / popover */
+    --card: 222 40% 12%;
+    --card-foreground: 45 45% 94%;
 
-    /* Brand navy */
-    --primary: 221 83% 58%;
-    --primary-foreground: 222 28% 10%;
+    --popover: 222 40% 12%;
+    --popover-foreground: 45 45% 94%;
 
-    --secondary: 222 18% 18%;
-    --secondary-foreground: 210 40% 96%;
+    /* Primary = gold */
+    --primary: 43 92% 52%;
+    --primary-foreground: 222 46% 9%;
 
-    --muted: 222 16% 18%;
-    --muted-foreground: 215 18% 72%;
+    /* Dark surfaces */
+    --secondary: 222 28% 16%;
+    --secondary-foreground: 45 45% 94%;
 
-    /* Gold accent */
-    --accent: 43 86% 52%;
-    --accent-foreground: 222 28% 10%;
+    --muted: 222 24% 16%;
+    --muted-foreground: 45 14% 76%;
 
-    --destructive: 0 72% 50%;
-    --destructive-foreground: 210 40% 96%;
+    /* Accent */
+    --accent: 43 92% 52%;
+    --accent-foreground: 222 46% 9%;
+
+    --destructive: 0 72% 52%;
+    --destructive-foreground: 45 45% 94%;
 
     /* Borders / inputs */
-    --border: 222 16% 22%;
-    --input: 222 16% 22%;
-    --ring: 221 83% 58%;
+    --border: 222 20% 22%;
+    --input: 222 20% 22%;
 
-    --radius: 0.9rem;
+    /* Ring: subtle blue */
+    --ring: 217 92% 65%;
 
-    /* ===== Sidebar (darker than chat) ===== */
-    --sidebar-background: 222 34% 8%;
-    --sidebar-foreground: 210 40% 92%;
+    --radius: 1.1rem;
 
-    --sidebar-primary: 221 83% 58%;
-    --sidebar-primary-foreground: 222 34% 8%;
-
-    --sidebar-accent: 222 18% 14%;
-    --sidebar-accent-foreground: 210 40% 96%;
-
-    --sidebar-border: 222 18% 18%;
-    --sidebar-ring: 221 83% 58%;
+    /* Sidebar */
+    --sidebar-background: 222 52% 7%;
+    --sidebar-foreground: 45 35% 92%;
+    --sidebar-primary: 43 92% 52%;
+    --sidebar-primary-foreground: 222 52% 7%;
+    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent-foreground: 45 45% 94%;
+    --sidebar-border: 222 24% 18%;
+    --sidebar-ring: 217 92% 65%;
   }
 
   * {
@@ -72,18 +77,12 @@ body {
   }
 }
 
-/* =======================================================
-   Sidebar Scrollbar (ONLY for sidebar content)
-   Target: .sidebar-scroll (we added it to SidebarContent)
-   ======================================================= */
-
-/* Firefox */
+/* Sidebar scrollbar */
 .sidebar-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(148, 163, 184, 0.35) rgba(2, 6, 23, 0.18);
+  scrollbar-color: rgba(212, 175, 55, 0.35) rgba(2, 6, 23, 0.18);
 }
 
-/* Chrome / Edge */
 .sidebar-scroll::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -95,13 +94,13 @@ body {
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.35);
+  background: rgba(212, 175, 55, 0.28);
   border-radius: 999px;
   border: 2px solid rgba(2, 6, 23, 0.18);
 }
 
 .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.55);
+  background: rgba(212, 175, 55, 0.42);
 }
 
 .sidebar-scroll::-webkit-scrollbar-corner {

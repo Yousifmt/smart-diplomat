@@ -50,18 +50,40 @@ export function LoginForm() {
     <Card
       dir="rtl"
       lang="ar"
-      className="w-full max-w-md rounded-3xl border bg-card/75 shadow-xl shadow-black/20 backdrop-blur"
+      className="
+        relative w-full max-w-md overflow-hidden rounded-[28px]
+        border border-amber-400/20
+        bg-card/70 shadow-2xl shadow-black/35 backdrop-blur-xl
+      "
     >
-      <CardHeader className="flex flex-col items-center text-center pb-0" dir="rtl" lang="ar">
+      {/* Premium background glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-24 -right-24 h-56 w-56 rounded-full bg-blue-400/10 blur-3xl" />
+        <div className="absolute -bottom-28 -left-28 h-64 w-64 rounded-full bg-amber-400/10 blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
+      </div>
+
+      <CardHeader className="relative flex flex-col items-center text-center pb-0">
         {/* ICON */}
-        <div className="mt-2 flex h-16 w-16 items-center justify-center rounded-3xl border border-indigo-400/25 bg-indigo-500/10 shadow-sm">
-          <div className="text-indigo-300">
-            <Logo iconOnly /* className="text-indigo-300" */ />
+        <div
+          className="
+            mt-2 flex h-16 w-16 items-center justify-center rounded-3xl
+            border border-amber-400/25 bg-blue-500/10 shadow-sm
+          "
+        >
+          <div className="text-amber-300 drop-shadow">
+            <Logo iconOnly />
           </div>
         </div>
 
-        {/* TITLE (EN only) */}
-        <div className="mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-l from-sky-300 to-indigo-300">
+        {/* TITLE */}
+        <div
+          className="
+            mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight
+            text-transparent bg-clip-text
+            bg-gradient-to-l from-amber-200 via-yellow-300 to-amber-400
+          "
+        >
           Smart Diplomat
         </div>
 
@@ -71,16 +93,20 @@ export function LoginForm() {
         </div>
 
         {/* SECTION TITLE */}
-        <CardTitle className="mt-6 text-2xl font-bold tracking-tight">تسجيل الدخول</CardTitle>
-        <p className="mt-2 text-sm text-muted-foreground">ادخل بريدك وكلمة المرور للمتابعة.</p>
+        <CardTitle className="mt-6 text-2xl font-bold tracking-tight text-amber-200">
+          تسجيل الدخول
+        </CardTitle>
+        <p className="mt-2 text-sm text-muted-foreground">
+          ادخل بريدك وكلمة المرور للمتابعة.
+        </p>
 
-        <div className="mt-6 h-px w-full bg-border/60" />
+        <div className="mt-6 h-px w-full bg-gradient-to-l from-transparent via-amber-400/25 to-transparent" />
       </CardHeader>
 
-      <CardContent className="px-6 pb-6 pt-6">
+      <CardContent className="relative px-6 pb-6 pt-6">
         <form onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-sm font-semibold">
+            <Label htmlFor="email" className="text-sm font-semibold text-amber-100/95">
               البريد الوظيفي
             </Label>
             <Input
@@ -92,12 +118,18 @@ export function LoginForm() {
               autoComplete="email"
               inputMode="email"
               required
-              className="h-12 rounded-2xl bg-background/35 px-4 text-center text-base"
+              className="
+                h-12 rounded-2xl bg-background/30 px-4 text-center text-base
+                border-amber-400/20
+                focus-visible:ring-2 focus-visible:ring-blue-400/40
+                focus-visible:border-amber-300/45
+                placeholder:text-amber-100/40
+              "
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="password" className="text-sm font-semibold">
+            <Label htmlFor="password" className="text-sm font-semibold text-amber-100/95">
               كلمة المرور
             </Label>
             <Input
@@ -108,14 +140,28 @@ export function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
               required
-              className="h-12 rounded-2xl bg-background/35 px-4 text-center text-base"
+              className="
+                h-12 rounded-2xl bg-background/30 px-4 text-center text-base
+                border-amber-400/20
+                focus-visible:ring-2 focus-visible:ring-blue-400/40
+                focus-visible:border-amber-300/45
+                placeholder:text-amber-100/40
+              "
             />
           </div>
 
           <Button
             type="submit"
             disabled={busy}
-            className="mt-2 h-12 w-full rounded-2xl text-base font-semibold"
+            className="
+              mt-2 h-12 w-full rounded-2xl text-base font-semibold
+              bg-gradient-to-l from-amber-300 via-yellow-300 to-amber-400
+              text-slate-950
+              shadow-lg shadow-black/25
+              hover:brightness-[1.03]
+              active:brightness-[0.98]
+              disabled:opacity-70
+            "
           >
             {busy ? "جاري الدخول…" : "دخول"}
           </Button>

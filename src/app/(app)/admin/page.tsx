@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useApp } from "@/providers/app-providers";
-import { addPassage, getPassagesByCountry, ingestCountrySources, deletePassage } from "@/actions/passages";
+import { addPassage, getPassagesByCountry, deletePassage } from "@/actions/passages";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Globe, RefreshCcw, Trash2 } from "lucide-react";
+
+import { CountrySelector } from "@/components/chat/country-selector";
 
 function trimOrDelete(fd: FormData, key: string) {
   const raw = fd.get(key);
@@ -31,7 +33,7 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
   return (
     <form
       ref={formRef}
-      className="space-y-3"
+      className="space-y-4"
       onSubmit={(e) => {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -42,7 +44,7 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
         trimOrDelete(fd, "title");
         trimOrDelete(fd, "url");
         trimOrDelete(fd, "snippet");
-        trimOrDelete(fd, "publicationDate"); // optional
+        trimOrDelete(fd, "publicationDate");
 
         startTransition(async () => {
           const res = await addPassage(fd);
@@ -58,41 +60,147 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
     >
       <input type="hidden" name="country" value={country} />
 
+      {/* ✅ Mobile perfect grid */}
       <div className="grid gap-3 md:grid-cols-2">
-        <div className="space-y-1">
-          <Label>اسم المصدر</Label>
-          <Input name="sourceName" required />
+        <div className="space-y-1.5">
+          <Label className="text-amber-100/90">اسم المصدر</Label>
+          <Input
+            name="sourceName"
+            required
+            className="
+              h-12 rounded-2xl bg-background/30
+              border-amber-400/14
+              text-[16px] md:text-sm
+              text-amber-100/90
+              placeholder:text-amber-100/30
+              focus-visible:ring-2 focus-visible:ring-blue-400/30
+              focus-visible:border-amber-300/30
+            "
+            placeholder="مثال: وزارة الخارجية"
+          />
         </div>
-        <div className="space-y-1">
-          <Label>الناشر</Label>
-          <Input name="publisher" required />
+
+        <div className="space-y-1.5">
+          <Label className="text-amber-100/90">الناشر</Label>
+          <Input
+            name="publisher"
+            required
+            className="
+              h-12 rounded-2xl bg-background/30
+              border-amber-400/14
+              text-[16px] md:text-sm
+              text-amber-100/90
+              placeholder:text-amber-100/30
+              focus-visible:ring-2 focus-visible:ring-blue-400/30
+              focus-visible:border-amber-300/30
+            "
+            placeholder="مثال: Official Gazette"
+          />
         </div>
       </div>
 
-      <div className="space-y-1">
-        <Label>العنوان</Label>
-        <Input name="title" required />
+      <div className="space-y-1.5">
+        <Label className="text-amber-100/90">العنوان</Label>
+        <Input
+          name="title"
+          required
+          className="
+            h-12 rounded-2xl bg-background/30
+            border-amber-400/14
+            text-[16px] md:text-sm
+            text-amber-100/90
+            placeholder:text-amber-100/30
+            focus-visible:ring-2 focus-visible:ring-blue-400/30
+            focus-visible:border-amber-300/30
+          "
+          placeholder="عنوان مختصر وواضح"
+        />
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
-        <div className="space-y-1">
-          <Label>الرابط</Label>
-          <Input name="url" required />
+        <div className="space-y-1.5">
+          <Label className="text-amber-100/90">الرابط</Label>
+          <Input
+            name="url"
+            required
+            inputMode="url"
+            className="
+              h-12 rounded-2xl bg-background/30
+              border-amber-400/14
+              text-[16px] md:text-sm
+              text-amber-100/90
+              placeholder:text-amber-100/30
+              focus-visible:ring-2 focus-visible:ring-blue-400/30
+              focus-visible:border-amber-300/30
+            "
+            placeholder="https://example.gov/..."
+          />
         </div>
-        <div className="space-y-1">
-          <Label>تاريخ النشر (اختياري)</Label>
-          <Input name="publicationDate" placeholder="2026-01-22" />
+
+        <div className="space-y-1.5">
+          <Label className="text-amber-100/90">تاريخ النشر (اختياري)</Label>
+          <Input
+            name="publicationDate"
+            placeholder="2026-01-22"
+            inputMode="numeric"
+            className="
+              h-12 rounded-2xl bg-background/30
+              border-amber-400/14
+              text-[16px] md:text-sm
+              text-amber-100/90
+              placeholder:text-amber-100/30
+              focus-visible:ring-2 focus-visible:ring-blue-400/30
+              focus-visible:border-amber-300/30
+            "
+          />
+          <p className="text-[11px] text-muted-foreground">
+            صيغة مقترحة: YYYY-MM-DD
+          </p>
         </div>
       </div>
 
-      <div className="space-y-1">
-        <Label>المحتوى</Label>
-        <Textarea name="snippet" rows={6} required />
+      <div className="space-y-1.5">
+        <Label className="text-amber-100/90">المحتوى</Label>
+        <Textarea
+          name="snippet"
+          rows={7}
+          required
+          className="
+            rounded-2xl bg-background/30
+            border-amber-400/14
+            text-[16px] md:text-sm
+            text-amber-100/90
+            placeholder:text-amber-100/30
+            focus-visible:ring-2 focus-visible:ring-blue-400/30
+            focus-visible:border-amber-300/30
+          "
+          placeholder="اكتب المحتوى/المعلومة هنا..."
+        />
       </div>
 
-      <Button type="submit" disabled={isPending}>
-        {isPending ? "جاري الحفظ..." : "إضافة معلومات يدوية"}
-      </Button>
+      {/* Buttons row */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="
+            h-12 rounded-2xl
+            bg-gradient-to-l from-indigo-500 via-blue-600 to-indigo-600
+            text-white shadow-lg shadow-black/25
+            hover:brightness-[1.06] active:brightness-[0.98]
+            disabled:opacity-60
+          "
+        >
+          {isPending ? "جاري الحفظ..." : "إضافة معلومات يدوية"}
+        </Button>
+
+        <div className="text-xs text-muted-foreground text-center sm:text-left">
+          تُحفظ البيانات ضمن سياق الدولة المحددة.
+        </div>
+      </div>
+
+      {/* Safe area for iPhone home indicator */}
+      <div className="h-[env(safe-area-inset-bottom)]" />
     </form>
   );
 }
@@ -103,7 +211,6 @@ export default function AdminPage() {
 
   const [manualInfos, setManualInfos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -133,7 +240,6 @@ export default function AdminPage() {
 
       toast({ title: "تم الحذف", description: "تم حذف المعلومات اليدوية." });
     } catch (e: any) {
-      // rollback
       setManualInfos(prev);
       toast({
         variant: "destructive",
@@ -146,13 +252,24 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="space-y-6" dir="rtl" lang="ar">
-      <div className="flex items-center justify-between gap-3">
+    <div className="relative space-y-6" dir="rtl" lang="ar">
+      {/* Background similar to chat */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,rgba(59,130,246,0.22)_0%,rgba(0,0,0,0)_62%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_18%_18%,rgba(245,158,11,0.10)_0%,rgba(0,0,0,0)_58%)]" />
+        <div className="absolute inset-0 opacity-[0.55] bg-[linear-gradient(to_bottom,rgba(255,255,255,0.05),rgba(0,0,0,0))]" />
+        <div className="absolute inset-0 opacity-[0.05] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:18px_18px]" />
+      </div>
+
+      {/* Header */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight">الإدارة</h1>
-            <Badge variant="secondary" className="gap-1">
-              <Globe className="h-3.5 w-3.5" />
+            <h1 className="text-2xl font-semibold tracking-tight text-amber-100/95">
+              الإدارة
+            </h1>
+            <Badge className="gap-1 border border-amber-400/14 bg-amber-400/10 text-amber-100/90">
+              <Globe className="h-3.5 w-3.5 text-amber-300" />
               {country}
             </Badge>
           </div>
@@ -160,48 +277,78 @@ export default function AdminPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline" onClick={refresh} className="gap-2">
-            <RefreshCcw className="h-4 w-4" />
+          <Button
+            variant="outline"
+            onClick={refresh}
+            className="
+              gap-2 rounded-2xl
+              border-amber-400/14 bg-amber-400/5
+              text-amber-100/85 hover:bg-amber-400/10 hover:text-amber-100
+            "
+          >
+            <RefreshCcw className="h-4 w-4 text-amber-300" />
             تحديث
           </Button>
         </div>
       </div>
 
-      {/* ✅ Full width card */}
-      <Card className="w-full">
+      {/* ✅ CountrySelector added (same as sidebar) */}
+      <Card className="w-full border-amber-400/14 bg-card/75 shadow-2xl shadow-black/25 backdrop-blur-xl">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-amber-100/95">سياق الدولة</CardTitle>
+          <CardDescription>اختر الدولة التي تريد إدارة معلوماتها.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="max-w-md">
+            <CountrySelector />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Manual info card */}
+      <Card className="w-full border-amber-400/14 bg-card/75 shadow-2xl shadow-black/25 backdrop-blur-xl">
         <CardHeader>
-          <CardTitle>المعلومات اليدوية</CardTitle>
+          <CardTitle className="text-amber-100/95">المعلومات اليدوية</CardTitle>
           <CardDescription>أضف معلومات بشكل يدوي ويمكنك حذف أي عنصر لاحقاً.</CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5">
           <ManualInfoForm onSaved={refresh} />
 
-          <div className="pt-2">
-            <div className="text-sm font-semibold mb-2">العناصر الحالية</div>
+          <div className="pt-1">
+            <div className="text-sm font-semibold mb-3 text-amber-100/90">العناصر الحالية</div>
 
             {loading ? (
-              <Skeleton className="h-24 w-full" />
+              <Skeleton className="h-24 w-full rounded-2xl bg-amber-400/5" />
             ) : manualInfos.length ? (
               <div className="space-y-2">
                 {manualInfos.map((p) => (
-                  <div key={p.id} className="rounded-xl border p-3 text-sm">
-                    <div className="flex items-start justify-between gap-3">
+                  <div
+                    key={p.id}
+                    className="
+                      rounded-2xl border border-amber-400/12
+                      bg-background/30 p-4 text-sm
+                      shadow-sm
+                    "
+                  >
+                    <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                       <div className="min-w-0">
                         <div className="text-xs text-muted-foreground">
                           {p.sourceName} • {p.publisher}
                         </div>
-                        <div className="font-semibold">{p.title}</div>
-                        <div className="text-xs text-muted-foreground break-all">{p.url}</div>
+                        <div className="mt-1 font-semibold text-amber-100/95">{p.title}</div>
+                        <div className="mt-1 text-xs text-muted-foreground break-all">{p.url}</div>
                         {p.publicationDate ? (
-                          <div className="text-xs text-muted-foreground mt-1">التاريخ: {p.publicationDate}</div>
+                          <div className="text-xs text-muted-foreground mt-2">
+                            التاريخ: {p.publicationDate}
+                          </div>
                         ) : null}
                       </div>
 
                       <Button
                         variant="destructive"
                         size="sm"
-                        className="shrink-0 gap-2"
+                        className="shrink-0 gap-2 rounded-2xl h-10"
                         disabled={deletingId === p.id}
                         onClick={() => onDelete(p.id)}
                       >
@@ -218,6 +365,8 @@ export default function AdminPage() {
           </div>
         </CardContent>
       </Card>
+
+      <div className="h-[env(safe-area-inset-bottom)]" />
     </div>
   );
 }

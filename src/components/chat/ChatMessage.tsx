@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { Message } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -6,7 +8,6 @@ import { Bot, User, ExternalLink } from "lucide-react";
 export function ChatMessage({ message }: { message: Message }) {
   const isUser = message.role === "user";
 
-  // subtle appear animation
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
@@ -28,7 +29,7 @@ export function ChatMessage({ message }: { message: Message }) {
           className={cn(
             "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border",
             isUser
-              ? "bg-muted/50 text-foreground border-border/70"
+              ? "border-[#12325A] bg-[#0B1F3A] text-amber-200"
               : "bg-primary text-primary-foreground border-primary/30"
           )}
         >
@@ -44,11 +45,11 @@ export function ChatMessage({ message }: { message: Message }) {
               "relative max-w-[92%] md:max-w-[85%]",
               "rounded-[22px] border px-4 py-3 text-sm leading-relaxed shadow-sm",
               isUser
-                ? "bg-primary text-primary-foreground border-primary/30 rounded-tr-md"
+                ? "bg-[#0B1F3A] text-amber-200 border-[#12325A] rounded-tr-md shadow-md shadow-black/25"
                 : "bg-background/70 text-foreground border-border/70 rounded-tl-md backdrop-blur"
             )}
           >
-            {/* assistant bubble glow */}
+            {/* assistant subtle glow */}
             {!isUser && (
               <div className="pointer-events-none absolute inset-0 rounded-[22px] bg-[radial-gradient(70%_60%_at_40%_0%,rgba(59,130,246,0.10)_0%,rgba(0,0,0,0)_60%)]" />
             )}
