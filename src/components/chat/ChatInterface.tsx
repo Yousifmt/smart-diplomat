@@ -181,6 +181,9 @@ export function ChatInterface() {
                   <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3">
                     مثال: لخص لي أهم الأخبار السياسية في الدولة المختارة مع مصادر.
                   </div>
+                  <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3">
+                    مثال: التحليل والتبؤ بالأزمات.
+                  </div>
                 </div>
               </div>
             ) : (

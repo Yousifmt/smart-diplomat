@@ -101,7 +101,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild isActive={pathname.startsWith("/admin")} className={navBtnBase}>
                   <Link href="/admin" onClick={closeIfMobile}>
                     <Settings className="text-blue-700" />
-                    <span>الإدارة</span>
+                    <span>تدوين المعلومات</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

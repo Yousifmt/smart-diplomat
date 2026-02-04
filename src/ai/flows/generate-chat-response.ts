@@ -1,4 +1,4 @@
-//src\ai\flows\generate-chat-response.ts
+// src/ai/flows/generate-chat-response.ts
 'use server';
 /**
  * @fileOverview Generates responses to user chat messages.
@@ -8,8 +8,8 @@
  * - GenerateChatResponseOutput - The return type for the generateChatResponse function.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
 
 const MessageSchema = z.object({
   role: z.enum(['user', 'assistant']),
@@ -28,7 +28,9 @@ const GenerateChatResponseOutputSchema = z.object({
 type GenerateChatResponseOutput = z.infer<typeof GenerateChatResponseOutputSchema>;
 
 // Wrapper function to be called from the client
-export async function generateChatResponse(input: GenerateChatResponseInput): Promise<GenerateChatResponseOutput> {
+export async function generateChatResponse(
+  input: GenerateChatResponseInput
+): Promise<GenerateChatResponseOutput> {
   const response = await generateChatResponseFlow(input);
   return { response };
 }
@@ -40,17 +42,37 @@ const generateChatResponseFlow = ai.defineFlow(
     outputSchema: z.string(),
   },
   async (input) => {
-    const history = input.history.map(m => ({
-        role: m.role === 'user' ? 'user' : 'model' as 'user' | 'model',
-        content: [{ text: m.content }],
-    }));
-    
-    const { text } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash',
-      system: 'You are a helpful AI assistant. Your goal is to provide accurate and up-to-date information. When asked about recent events, provide the most current information you have access to. If you cannot provide recent information on a topic, please state that your knowledge has a cutoff and you cannot provide real-time updates.',
-      prompt: input.message,
-      history: history,
-    });
+    // Arabic-first system instruction + language mirroring rule
+    const systemInstruction = `أنت مساعد ذكاء اصطناعي مفيد ومحايد.
+
+قاعدة اللغة (مهمة جداً):
+- لازم ترد بنفس لغة المستخدم.
+- إذا المستخدم كتب بالعربية: رد بالعربية.
+- إذا المستخدم كتب بالإنجليزية: رد بالإنجليزية.
+- إذا المستخدم خلط لغتين: استخدم اللغة الغالبة أو اسأله أي لغة يفضّل.
+
+ملاحظة القدرات:
+- ما عندك وصول مباشر للويب أو بيانات لحظية إلا إذا التطبيق وفّر لك مصادر/أدوات.
+- إذا سُئلت عن أحداث حديثة بدون مصادر، كن شفافاً واطلب رابط/مصدر أو اقترح استخدام نظام المصادر المعتمدة.
+- افصل بين الحقائق والاستنتاجات، ووضّح الافتراضات بوضوح.
+- تجنب اختلاق معلومات.
+
+تعليمات الإخراج:
+- أعطِ جواباً واضحاً ومباشراً.
+- إذا كنت غير متأكد، قل ذلك واقترح ما يلزم للتأكد.`;
+
+    // Build a single prompt string (most compatible with Genkit typings)
+    const formattedHistory = (input.history || [])
+      .map((m) => (m.role === 'user' ? `المستخدم: ${m.content}` : `المساعد: ${m.content}`))
+      .join('\n');
+
+    const fullPrompt = [
+      `SYSTEM:\n${systemInstruction}`,
+      formattedHistory ? `\n\nسجل المحادثة:\n${formattedHistory}` : '',
+      `\n\nالمستخدم: ${input.message}\nالمساعد:`,
+    ].join('');
+
+    const { text } = await ai.generate(fullPrompt);
 
     return text;
   }

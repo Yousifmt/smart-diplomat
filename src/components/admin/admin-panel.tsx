@@ -50,7 +50,7 @@ export function AdminPanel() {
   return (
     <div className="space-y-6" dir="rtl" lang="ar">
       <div>
-        <h1 className="text-2xl font-headline">الإدارة</h1>
+        <h1 className="text-2xl font-headline">تدوين المعلومات</h1>
         <p className="text-sm text-muted-foreground">
           إدارة المصادر المعتمدة والمقاطع المحفوظة لـ{" "}
           <span className="font-semibold">{country}</span>.

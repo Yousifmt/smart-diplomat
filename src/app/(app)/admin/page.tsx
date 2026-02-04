@@ -162,7 +162,7 @@ export default function AdminPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-semibold tracking-tight text-blue-950">الإدارة</h1>
+            <h1 className="text-2xl font-semibold tracking-tight text-blue-950">تدوين المعلومات</h1>
             <Badge className="gap-1 border border-blue-200 bg-blue-50 text-blue-950">
               <Globe className="h-3.5 w-3.5 text-blue-700" />
               {country}
