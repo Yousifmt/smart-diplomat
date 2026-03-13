@@ -183,7 +183,7 @@ export default function AdminPage() {
 
       <Card className="w-full border-blue-200 bg-white/75 shadow-lg shadow-blue-900/10 backdrop-blur">
         <CardHeader>
-          <CardTitle className="text-blue-950">سياق الدولة</CardTitle>
+          <CardTitle className="text-blue-950">الدولة</CardTitle>
           <CardDescription className="text-blue-950/70">اختر الدولة ثم أضف/احذف المعلومات.</CardDescription>
         </CardHeader>
         <CardContent>

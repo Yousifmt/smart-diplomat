@@ -16,7 +16,7 @@ import {
   SidebarSeparator,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { BotMessageSquare, Settings, PlusCircle, ShieldCheck } from "lucide-react";
+import { BotMessageSquare, Settings, ShieldCheck } from "lucide-react";
 import { CountrySelector } from "@/components/chat/country-selector";
 import { cn } from "@/lib/utils";
 
@@ -67,29 +67,15 @@ export function AppSidebar() {
 
       <SidebarContent className="px-2 sidebar-scroll">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-blue-950/70">إجراءات سريعة</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="محادثة جديدة" className={navBtnBase}>
-                  <Link href="/chat" onClick={closeIfMobile}>
-                    <PlusCircle className="text-blue-700" />
-                    <span>محادثة جديدة</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarSeparator className="bg-blue-200" />
-
-        <SidebarGroup>
           <SidebarGroupLabel className="text-blue-950/70">التنقّل</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={pathname.startsWith("/chat")} className={navBtnBase}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith("/chat")}
+                  className={navBtnBase}
+                >
                   <Link href="/chat" onClick={closeIfMobile}>
                     <BotMessageSquare className="text-blue-700" />
                     <span>المحادثة</span>
@@ -98,7 +84,11 @@ export function AppSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={pathname.startsWith("/admin")} className={navBtnBase}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={pathname.startsWith("/admin")}
+                  className={navBtnBase}
+                >
                   <Link href="/admin" onClick={closeIfMobile}>
                     <Settings className="text-blue-700" />
                     <span>تدوين المعلومات</span>
@@ -112,9 +102,8 @@ export function AppSidebar() {
         <SidebarSeparator className="bg-blue-200" />
 
         <SidebarGroup>
-          <SidebarGroupLabel className="text-blue-950/70">سياق الدولة</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-blue-950/70">الدولة</SidebarGroupLabel>
           <SidebarGroupContent>
-            {/* ✅ لا يغلق السايدبار عند الضغط على الدروب داون */}
             <div
               className="px-2 py-1"
               onClick={(e) => e.stopPropagation()}
