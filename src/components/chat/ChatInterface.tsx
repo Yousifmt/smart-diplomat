@@ -203,7 +203,7 @@ export function ChatInterface() {
 
                 <div className="mt-6 grid gap-3 text-right text-sm">
                   <div className="rounded-2xl border border-white/70 bg-white px-4 py-3 text-black shadow-sm shadow-blue-950/20">
-                    مثال: ما آخر التطورات في العلاقات بين X و Y؟
+                    مثال: ما آخر التطورات في العلاقات بين دولة أ ودولة ب.
                   </div>
 
                   <div className="rounded-2xl border border-white/70 bg-white px-4 py-3 text-black shadow-sm shadow-blue-950/20">
