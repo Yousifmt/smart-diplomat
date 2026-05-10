@@ -14,7 +14,7 @@ type ChatInputProps = {
 export function ChatInput({
   onSendMessage,
   isLoading = false,
-  placeholder = "Message Smart Diplomat…",
+  placeholder = "اكتب رسالتك هنا...",
 }: ChatInputProps) {
   const [value, setValue] = React.useState("");
 
@@ -22,6 +22,7 @@ export function ChatInput({
 
   const send = React.useCallback(async () => {
     const msg = value.trim();
+
     if (!msg || isLoading) return;
 
     setValue("");
@@ -32,9 +33,16 @@ export function ChatInput({
     <div className="w-full" dir="rtl" lang="ar">
       <div
         className={cn(
-          "rounded-[26px] border border-blue-200 bg-white/70 backdrop-blur",
-          "shadow-sm transition-colors hover:bg-white/85",
-          "focus-within:ring-2 focus-within:ring-blue-400/25"
+          "chat-input-box",
+          "overflow-hidden",
+          "rounded-[26px]",
+          "border border-white/10",
+          "bg-[#243b72]",
+          "shadow-xl shadow-black/10",
+          "transition-all duration-200",
+          "focus-within:border-blue-400",
+          "focus-within:ring-2",
+          "focus-within:ring-blue-400/25"
         )}
       >
         <div className="flex items-stretch gap-2 p-3">
@@ -45,49 +53,80 @@ export function ChatInput({
               placeholder={placeholder}
               rows={1}
               className={cn(
-                "w-full resize-none bg-transparent outline-none",
-                "text-[16px] md:text-[14px] leading-6", // ✅ iOS no-zoom
-                "text-slate-950 placeholder:text-slate-500",
-                "min-h-[48px] py-2 px-3",
-                "overflow-hidden"
+                "chat-input-field",
+                "w-full resize-none",
+                "rounded-2xl",
+                "border border-gray-200",
+                "bg-white",
+                "text-black",
+                "placeholder:text-gray-500",
+                "outline-none",
+                "text-[15px] md:text-[14px]",
+                "leading-6",
+                "min-h-[48px]",
+                "py-3 px-4",
+                "overflow-hidden",
+                "shadow-sm",
+                "focus:border-blue-400",
+                "focus:ring-2",
+                "focus:ring-blue-400/20"
               )}
-              autoCapitalize="sentences"
-              autoCorrect="on"
+              style={{
+                background: "#ffffff",
+                backgroundColor: "#ffffff",
+                color: "#000000",
+                WebkitTextFillColor: "#000000",
+              }}
               spellCheck={false}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
+
                   if (canSend) void send();
                 }
               }}
             />
           </div>
 
-          <div className="shrink-0">
-            <Button
-              type="button"
-              onClick={() => void send()}
-              disabled={!canSend}
-              className={cn(
-                "h-[48px] w-[54px] rounded-2xl p-0",
-                "bg-blue-200 text-slate-950 shadow-md shadow-blue-900/10",
-                "hover:bg-blue-300/80 active:bg-blue-300",
-                "disabled:opacity-50"
-              )}
-              aria-label="Send"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
-          </div>
+          <Button
+            type="button"
+            onClick={() => void send()}
+            disabled={!canSend}
+            aria-label="Send"
+            className={cn(
+              "h-[48px] w-[54px]",
+              "rounded-2xl p-0",
+              "bg-blue-500 text-white",
+              "shadow-lg shadow-blue-500/20",
+              "transition-all",
+              "hover:bg-blue-400",
+              "active:bg-blue-600",
+              "disabled:bg-white/15",
+              "disabled:text-white/40",
+              "disabled:shadow-none",
+              "disabled:opacity-100"
+            )}
+          >
+            <Send className="h-4 w-4" />
+          </Button>
         </div>
 
-        <div className="border-t border-blue-200 px-3 py-2">
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-600">
-            <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5">
+        <div
+          className={cn(
+            "chat-input-footer",
+            "border-t border-white/10",
+            "bg-[#243b72]",
+            "px-3 py-2",
+            "rounded-b-[26px]"
+          )}
+        >
+          <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-blue-100/70">
+            <span className="rounded-full border border-white/10 bg-white/10 px-2 py-0.5">
               Enter للإرسال
             </span>
-            <span className="rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5">
-              Shift+Enter سطر جديد
+
+            <span className="rounded-full border border-white/10 bg-white/10 px-2 py-0.5">
+              Shift + Enter سطر جديد
             </span>
           </div>
         </div>

@@ -11,7 +11,10 @@ import { useApp } from "@/providers/app-providers";
 
 function nameFromEmail(email: string) {
   const left = (email.split("@")[0] ?? "User").trim() || "User";
-  return left.replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return left
+    .replace(/[._-]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function LoginForm() {
@@ -35,6 +38,7 @@ export function LoginForm() {
     if (!safeEmail || !password) return;
 
     setBusy(true);
+
     try {
       await new Promise((r) => setTimeout(r, 450));
       setSession({ email: safeEmail, displayName });
@@ -45,9 +49,10 @@ export function LoginForm() {
   };
 
   const inputClass =
-    "h-12 rounded-2xl bg-blue-50/80 px-4 text-center border-blue-200 " +
-    "text-[16px] md:text-sm text-blue-950 placeholder:text-blue-900/40 " +
-    "focus-visible:ring-2 focus-visible:ring-blue-500/30";
+    "h-12 rounded-2xl border-white/10 bg-white/[0.07] px-4 text-center " +
+    "text-[16px] md:text-sm text-white placeholder:text-blue-100/40 " +
+    "shadow-sm shadow-blue-950/20 backdrop-blur " +
+    "focus-visible:border-blue-400/40 focus-visible:ring-2 focus-visible:ring-blue-400/25";
 
   return (
     <Card
@@ -55,47 +60,53 @@ export function LoginForm() {
       lang="ar"
       className="
         w-full max-w-md overflow-hidden rounded-[28px]
-        border border-blue-200/80
-        bg-white/80 shadow-xl shadow-blue-900/10
-        backdrop-blur
+        border border-white/10
+        bg-slate-950/70 text-white
+        shadow-2xl shadow-blue-950/40
+        backdrop-blur-xl
       "
     >
-      <CardHeader className="relative flex flex-col items-center text-center pb-0">
+      <CardHeader className="relative flex flex-col items-center pb-0 text-center">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-blue-300/25 blur-3xl" />
-          <div className="absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-blue-200/20 blur-3xl" />
+          <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl" />
         </div>
 
-        <div className="relative mt-2 flex h-16 w-16 items-center justify-center rounded-3xl border border-blue-200 bg-blue-50 shadow-sm">
-          <div className="text-blue-950">
+        <div className="relative mt-2 flex h-16 w-16 items-center justify-center rounded-3xl border border-blue-400/25 bg-blue-500/15 shadow-lg shadow-blue-950/25">
+          <div className="text-blue-100">
             <Logo iconOnly />
           </div>
         </div>
 
-        <div className="relative mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight text-blue-950">
+        <div className="relative mt-4 whitespace-nowrap text-3xl font-extrabold tracking-tight text-white">
           Smart Diplomat
         </div>
 
-        <div className="relative mt-3 text-sm text-blue-950/75">
+        <div className="relative mt-3 text-sm text-blue-100/70">
           مساعد دبلوماسي مبني على مصادر معتمدة
         </div>
 
-        <CardTitle className="relative mt-6 text-2xl font-bold tracking-tight text-blue-950">
+        <CardTitle className="relative mt-6 text-2xl font-bold tracking-tight text-white">
           تسجيل الدخول
         </CardTitle>
-        <p className="relative mt-2 text-sm text-blue-950/75">
+
+        <p className="relative mt-2 text-sm text-blue-100/70">
           ادخل بريدك وكلمة المرور للمتابعة.
         </p>
 
-        <div className="relative mt-6 h-px w-full bg-gradient-to-l from-transparent via-blue-200 to-transparent" />
+        <div className="relative mt-6 h-px w-full bg-gradient-to-l from-transparent via-blue-400/30 to-transparent" />
       </CardHeader>
 
       <CardContent className="relative px-6 pb-6 pt-6">
         <form onSubmit={onSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-sm font-semibold text-blue-950">
+            <Label
+              htmlFor="email"
+              className="text-sm font-semibold text-blue-100/85"
+            >
               البريد الوظيفي
             </Label>
+
             <Input
               id="email"
               type="email"
@@ -110,9 +121,13 @@ export function LoginForm() {
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="password" className="text-sm font-semibold text-blue-950">
+            <Label
+              htmlFor="password"
+              className="text-sm font-semibold text-blue-100/85"
+            >
               كلمة المرور
             </Label>
+
             <Input
               id="password"
               type="password"
@@ -130,14 +145,15 @@ export function LoginForm() {
             disabled={busy}
             className="
               mt-2 h-12 w-full rounded-2xl text-base font-semibold
-              bg-blue-600 text-white hover:bg-blue-700
-              shadow-md shadow-blue-900/15
+              bg-blue-500 text-white shadow-lg shadow-blue-950/30
+              hover:bg-blue-400 active:bg-blue-600
+              disabled:bg-white/10 disabled:text-white/40 disabled:shadow-none
             "
           >
             {busy ? "جاري الدخول…" : "دخول"}
           </Button>
 
-          <p className="mt-1 text-center text-xs text-blue-950/70">
+          <p className="mt-1 text-center text-xs text-blue-100/60">
             باستخدامك للتطبيق فأنت توافق على الاستخدام لأغراض معلوماتية فقط.
           </p>
         </form>
