@@ -9,6 +9,7 @@ export function ChatMessage({ message }: { message: Message }) {
   const isUser = message.role === "user";
 
   const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
@@ -27,7 +28,7 @@ export function ChatMessage({ message }: { message: Message }) {
         <div
           className={cn(
             "mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border",
-            "border-blue-200 bg-blue-50 text-blue-950"
+            "border-gray-200 bg-white text-black shadow-sm"
           )}
         >
           {isUser ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
@@ -37,37 +38,42 @@ export function ChatMessage({ message }: { message: Message }) {
           <div
             dir="rtl"
             lang="ar"
+            data-role={message.role}
             className={cn(
               "relative max-w-[92%] md:max-w-[85%]",
               "rounded-[22px] border px-4 py-3 text-sm leading-relaxed shadow-sm",
-              "border-blue-200",
-              isUser ? "bg-blue-100/70 rounded-tr-md" : "bg-white/80 rounded-tl-md backdrop-blur"
+              "border-gray-200 bg-white text-black",
+              isUser ? "rounded-tr-md" : "rounded-tl-md"
             )}
           >
-            {!isUser && (
-              <div className="pointer-events-none absolute inset-0 rounded-[22px] bg-[radial-gradient(70%_60%_at_40%_0%,rgba(37,99,235,0.10)_0%,rgba(0,0,0,0)_60%)]" />
-            )}
-
-            <div className="relative whitespace-pre-wrap text-blue-950">{message.content}</div>
+            <div className="relative whitespace-pre-wrap text-black">
+              {message.content}
+            </div>
 
             {message.citations && message.citations.length > 0 && (
-              <div className="relative mt-4 border-t border-blue-200 pt-3">
-                <div className="mb-2 text-xs font-semibold text-blue-950/80">References</div>
+              <div className="relative mt-4 border-t border-gray-200 pt-3">
+                <div className="mb-2 text-xs font-semibold text-black/80">
+                  References
+                </div>
+
                 <ul className="space-y-2">
                   {message.citations.map((c, i) => (
-                    <li key={i} className="text-xs text-blue-950/75">
+                    <li key={i} className="text-xs text-black/75">
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 hover:text-blue-950 hover:underline"
+                        className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 hover:underline"
                       >
                         <span>
                           {i + 1}. {c.title}
                         </span>
                         <ExternalLink className="h-3 w-3" />
                       </a>
-                      <span className="ms-2 opacity-90">({c.publisher})</span>
+
+                      <span className="ms-2 opacity-90">
+                        ({c.publisher})
+                      </span>
                     </li>
                   ))}
                 </ul>

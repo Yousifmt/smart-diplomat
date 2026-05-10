@@ -25,7 +25,7 @@ const PassageSchema = z.object({
   sourceName: z.string().min(1),
   publisher: z.string().min(1),
   title: z.string().min(1),
-  url: z.string().url(),
+  url: z.string().trim().optional().or(z.literal("")),
   snippet: z.string().min(1),
   publicationDate: z.string().min(4).optional(), // optional
 });
