@@ -24,6 +24,7 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   const displayName = useMemo(
     () => (email.trim() ? nameFromEmail(email.trim()) : null),
@@ -32,16 +33,32 @@ export function LoginForm() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (busy) return;
 
     const safeEmail = email.trim();
-    if (!safeEmail || !password) return;
 
+    if (!safeEmail || !password) {
+      setError("يرجى إدخال البريد وكلمة المرور.");
+      return;
+    }
+
+    if (password !== "12345") {
+      setError("كلمة المرور غير صحيحة.");
+      return;
+    }
+
+    setError("");
     setBusy(true);
 
     try {
       await new Promise((r) => setTimeout(r, 450));
-      setSession({ email: safeEmail, displayName });
+
+      setSession({
+        email: safeEmail,
+        displayName,
+      });
+
       router.push("/chat");
     } finally {
       setBusy(false);
@@ -112,7 +129,10 @@ export function LoginForm() {
               type="email"
               placeholder="name@mission.gov"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               autoComplete="email"
               inputMode="email"
               required
@@ -133,12 +153,21 @@ export function LoginForm() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
               autoComplete="current-password"
               required
               className={inputClass}
             />
           </div>
+
+          {error && (
+            <p className="rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-center text-sm font-medium text-red-200">
+              {error}
+            </p>
+          )}
 
           <Button
             type="submit"

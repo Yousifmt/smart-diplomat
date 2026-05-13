@@ -28,9 +28,9 @@ import { CountrySelector } from "@/components/chat/country-selector";
 import { cn } from "@/lib/utils";
 
 const suggestedQuestions = [
-  "لخّص آخر التصريحات الرسمية المتعلقة بالعقوبات والدبلوماسية.",
+  "لخّص آخر التصريحات الرسمية المتعلقة بالأزمات الدبلوماسية.",
   "ما أهم أولويات السياسات لهذا البلد خلال هذا الشهر؟",
-  "اذكر أبرز الأزمات المتوقعة وقدّم توصيات (مع الاستشهاد بالمصادر).",
+  "اذكر أبرز الأزمات المتوقعة وقدّم التوصيات (مع الاستشهاد بالمصادر).",
 ];
 
 export function AppSidebar() {
@@ -92,7 +92,7 @@ export function AppSidebar() {
             </div>
 
             <div className="text-xs text-blue-100/65">
-              مساعد ذكاء للمعلومات الدبلوماسية
+              مساعد ذكاء إصطناعي للمعلومات الدبلوماسية
             </div>
           </div>
         </Link>

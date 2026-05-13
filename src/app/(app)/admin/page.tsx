@@ -139,7 +139,7 @@ function ManualInfoForm({ onSaved }: { onSaved: () => void }) {
           disabled:bg-white/10 disabled:text-white/40 disabled:shadow-none
         "
       >
-        {isPending ? "جاري الحفظ..." : "إضافة معلومات يدوية"}
+        {isPending ? "جاري الحفظ..." : "إضافة معلومات"}
       </Button>
 
       <div className="h-[env(safe-area-inset-bottom)]" />
@@ -214,7 +214,7 @@ export default function AdminPage() {
           </div>
 
           <p className="mt-1 text-sm text-blue-100/65">
-            إضافة/إدارة المعلومات اليدوية فقط.
+            إضافة/إدارة من الموظف الدبلوماسي.
           </p>
         </div>
 
