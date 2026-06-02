@@ -31,16 +31,16 @@ export async function askDiplomat(opts: { country: string; query: string }) {
       enabled: s.enabled,
     }));
 
-  // 2) Try RSS retrieval first
+  // 2) Try RSS retrieval first (Reduced topK for faster network response)
   let retrievedPassages = await retrieveFromApprovedSources({
     query: q,
     sources: approved,
-    topK: 8,
+    topK: 4, // ⚡ تم التقليل من 8 إلى 4 لتسريع الاستجابة
   });
 
   // 3) Fallback: use manual Firestore passages (keyword scoring)
   if (!retrievedPassages || retrievedPassages.length === 0) {
-    const manual = await getRelevantPassages(c, q, 8);
+    const manual = await getRelevantPassages(c, q, 4); // ⚡ تم التقليل هنا أيضاً
 
     retrievedPassages = manual.map((p: any) => ({
       title: p.title,
